@@ -277,6 +277,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SP8GM5K6M9;
 				INFOPLIST_FILE = "MemeMe-V1/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bwhisnant.MemeMe-V1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -292,6 +293,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SP8GM5K6M9;
 				INFOPLIST_FILE = "MemeMe-V1/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bwhisnant.MemeMe-V1";
 				PRODUCT_NAME = "$(TARGET_NAME)";

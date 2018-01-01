@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +14,52 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe_V1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOx-hb-CLe">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8fr-Xd-OaV">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <subviews>
+                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YRc-er-QDg">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <items>
+                                            <barButtonItem title="Share" id="NNo-ky-Uaw"/>
+                                            <barButtonItem style="plain" systemItem="flexibleSpace" id="Ll4-Kd-PGs"/>
+                                            <barButtonItem title="Cancel" id="KXJ-ix-hHf"/>
+                                        </items>
+                                    </toolbar>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="YRc-er-QDg" firstAttribute="top" secondItem="8fr-Xd-OaV" secondAttribute="topMargin" id="5lO-PT-h8u"/>
+                                    <constraint firstItem="YRc-er-QDg" firstAttribute="leading" secondItem="8fr-Xd-OaV" secondAttribute="leadingMargin" id="6jb-wn-mwI"/>
+                                    <constraint firstItem="YRc-er-QDg" firstAttribute="trailing" secondItem="8fr-Xd-OaV" secondAttribute="trailingMargin" id="KBV-ed-IRu"/>
+                                    <constraint firstItem="YRc-er-QDg" firstAttribute="centerX" secondItem="8fr-Xd-OaV" secondAttribute="centerX" id="MZK-sT-ObX"/>
+                                    <constraint firstAttribute="trailing" secondItem="YRc-er-QDg" secondAttribute="trailing" id="nJL-ZX-9Et"/>
+                                    <constraint firstItem="YRc-er-QDg" firstAttribute="leading" secondItem="8fr-Xd-OaV" secondAttribute="leading" id="nmG-BJ-peF"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="8fr-Xd-OaV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9d3-Ur-gT4"/>
+                            <constraint firstItem="cOx-hb-CLe" firstAttribute="trailing" secondItem="8fr-Xd-OaV" secondAttribute="trailing" id="ehp-a0-6t1"/>
+                            <constraint firstItem="cOx-hb-CLe" firstAttribute="leading" secondItem="8fr-Xd-OaV" secondAttribute="leading" id="fTh-s0-j7e"/>
+                            <constraint firstItem="cOx-hb-CLe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="fnQ-Xw-aQu"/>
+                            <constraint firstItem="cOx-hb-CLe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="t3O-pO-Gi5"/>
+                            <constraint firstAttribute="trailing" secondItem="cOx-hb-CLe" secondAttribute="trailing" id="uLf-lW-fFl"/>
+                            <constraint firstItem="cOx-hb-CLe" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="wCm-V9-6VA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-98.400000000000006" y="117.39130434782609"/>
         </scene>
     </scenes>
 </document>
