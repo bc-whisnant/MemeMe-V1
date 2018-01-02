@@ -27,23 +27,15 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     
     //added text attributes for text fields
     //added code for the text field styles
-    let memeTextAttributes:[String:Any] = [
-        NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
-        NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
-        NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSAttributedStringKey.strokeWidth.rawValue: 4]
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        //set default attributes for text fields and assign delegates to each
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        //this sets the code to center align ---> this has to be done via code
-        topTextField.textAlignment = .center
-        bottomTextField.textAlignment = .center
-        topTextField.delegate = self
-        bottomTextField.delegate = self
+        configure(textField: topTextField, withText: "TOP")
+        configure(textField: bottomTextField, withText: "BOTTOM")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,20 +61,12 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     
     //added functionality for photo album
     @IBAction func libraryButtonPressed(_ sender: Any) {
-        //image picker view
-        let pickerController = UIImagePickerController()
-        //sets delefate for picker view
-        pickerController.delegate = self
-        pickerController.sourceType = .photoLibrary
-        present(pickerController, animated: true, completion: nil)
+        presentImagePickerWith(sourceType: .photoLibrary)
     }
     
     //added functionaltiy for camera
     @IBAction func cameraButtonPressed(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
+        presentImagePickerWith(sourceType: .camera)
     }
     
     //added ability to share photo
@@ -94,9 +78,6 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         //create activity view controller
         let activityViewController = UIActivityViewController(activityItems: [memedImage!], applicationActivities: nil)
         
-        // present the activity view controller
-        present(activityViewController, animated: true, completion: nil)
-        
         //save meme and then dismiss view since action is complete ---> remember the proper syntax for completionWithItemsHandler
         //this part was really difficult to code
         activityViewController.completionWithItemsHandler = {(activityType: UIActivityType?, completed:Bool, returnedItems:[Any]?, error: Error?) in
@@ -107,6 +88,11 @@ UINavigationControllerDelegate, UITextFieldDelegate {
                 print("error saving the meme image")
             }
         }
+        
+        // present the activity view controller
+        present(activityViewController, animated: true, completion: nil)
+        
+        
     }
     
     //add ability to cancel here
@@ -117,6 +103,34 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
         dismiss(animated: true, completion: nil)
+    }
+    
+    //added function to set defaults for text fields
+    func configure(textField: UITextField, withText text: String){
+        // set delegate, text, default attributes, etc...
+        let memeTextAttributes:[String:Any] = [
+            NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
+            NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
+            NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            NSAttributedStringKey.strokeWidth.rawValue: -4]
+        topTextField.defaultTextAttributes = memeTextAttributes
+        bottomTextField.defaultTextAttributes = memeTextAttributes
+        //this sets the code to center align ---> this has to be done via code
+        topTextField.textAlignment = .center
+        bottomTextField.textAlignment = .center
+        topTextField.delegate = self
+        bottomTextField.delegate = self
+        
+    }
+    
+    //added function to configure and present image picket --- source type changes depending on library or camera button pressed
+    
+    func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType){
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = sourceType
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+        
     }
     
     
@@ -136,8 +150,11 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     //the following functions are a solution for the keyboard covering the bottom input field
     
     @objc func keyboardWillShow(_ notification:Notification) {
-        
-        view.frame.origin.y = 0 - getKeyboardHeight(notification)
+        //view only moves up if bottom text field is pressed
+        if bottomTextField.isFirstResponder {
+             view.frame.origin.y = 0 - getKeyboardHeight(notification)
+        }
+       
     }
     
     @objc func keyboardWillHide(_ notification:Notification) {
@@ -168,11 +185,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     //this renders the view to an actual image
     func generateMemedImage() -> UIImage {
         // Hide toolbar and navbar
-        //navigationController?.toolbar.isHidden = true
-        //navigationController?.navigationBar.isHidden = true
-        topToolBar.isHidden = true
-        btmToolBar.isHidden = true
-        
+        configureBars(hidden: true)
         
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
@@ -180,8 +193,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
-        topToolBar.isHidden = false
-        btmToolBar.isHidden = false
+        configureBars(hidden: false)
         
         return memedImage
     }
@@ -196,6 +208,13 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     func textFieldShouldReturn(_ topTextField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
+    }
+    
+    //added function to hide toolbars depending on bool value
+    func configureBars(hidden: Bool) {
+        topToolBar.isHidden = hidden
+        btmToolBar.isHidden = hidden
+        
     }
 
 }

@@ -6,7 +6,6 @@
 //  Copyright © 2018 Galvatron. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 //this created the struct for meme initialization
