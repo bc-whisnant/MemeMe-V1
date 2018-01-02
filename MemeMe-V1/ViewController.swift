@@ -111,6 +111,13 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     
     //add ability to cancel here
     
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        // Reset to blank image and default text in textfields
+        pickedImageView.image = nil
+        topTextField.text = "TOP"
+        bottomTextField.text = "BOTTOM"
+        dismiss(animated: true, completion: nil)
+    }
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
