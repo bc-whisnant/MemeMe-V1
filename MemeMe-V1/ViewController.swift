@@ -19,6 +19,8 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     @IBOutlet weak var libraryButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var topToolBar: UIToolbar!
+    @IBOutlet weak var btmToolBar: UIToolbar!
     
     var memedImage: UIImage?
     
@@ -51,7 +53,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
         subscribeToKeyboardNotifications()
-        
+        //disables share button until an image is selected to prevent premature sharing of meme
         if (pickedImageView.image != nil) {
             // enable the share button only when this condition is met
             shareButton.isEnabled = true
@@ -61,7 +63,6 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
     }
@@ -105,10 +106,12 @@ UINavigationControllerDelegate, UITextFieldDelegate {
             } else {
                 print("error saving the meme image")
             }
-            
         }
-        
     }
+    
+    //add ability to cancel here
+    
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         //sets background of imageview as long as the chosen item is a UI Image
@@ -155,16 +158,13 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         
     }
 
-    //this code actually creates the meme ---> remember the struct in MemeStruct.swift!!
-    func save() {
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!,
-                        originalImage: pickedImageView.image!, memedImage: memedImage)
-    }
     //this renders the view to an actual image
     func generateMemedImage() -> UIImage {
         // Hide toolbar and navbar
-        navigationController?.toolbar.isHidden = true
-        navigationController?.navigationBar.isHidden = true
+        //navigationController?.toolbar.isHidden = true
+        //navigationController?.navigationBar.isHidden = true
+        topToolBar.isHidden = true
+        btmToolBar.isHidden = true
         
         
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -173,10 +173,16 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         UIGraphicsEndImageContext()
         
         // Show toolbar and navbar
-        navigationController?.toolbar.isHidden = false
-        navigationController?.navigationBar.isHidden = false
+        topToolBar.isHidden = false
+        btmToolBar.isHidden = false
         
         return memedImage
+    }
+    
+    //this code actually creates the meme ---> remember the struct in MemeStruct.swift!!
+    func save() {
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!,
+                        originalImage: pickedImageView.image!, memedImage: memedImage)
     }
 
     //this function allows the return button to dismiss the keyboard
@@ -184,19 +190,6 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
-    
-    //the following code makes sure the share button is enabled unless an image is selected
-//    func enableShareOnlyIfConditionsAreMet() {
-//        if (pickedImageView.image != nil) {
-//            // enable the share button only when this condition is met
-//            shareButton.isEnabled = true
-//        } else {
-//            shareButton.isEnabled = false
-//        }
-//    }
-    
-    
-
 
 }
 

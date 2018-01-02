@@ -98,12 +98,14 @@
                     </view>
                     <connections>
                         <outlet property="bottomTextField" destination="AXj-UP-0yx" id="Bgh-Qw-5Bm"/>
+                        <outlet property="btmToolBar" destination="dF8-gQ-DNN" id="Zcc-g8-OUN"/>
                         <outlet property="cameraButton" destination="GCg-94-wLC" id="Lws-Yz-Jj6"/>
                         <outlet property="cancelButton" destination="mVC-lR-dwV" id="Bzs-KD-Go4"/>
                         <outlet property="libraryButton" destination="dWk-Lw-StQ" id="eq7-NZ-Zb4"/>
                         <outlet property="pickedImageView" destination="7KX-Yj-Krg" id="rQ6-gN-eQN"/>
                         <outlet property="shareButton" destination="3Cm-kN-VeG" id="hoL-Sb-MNs"/>
                         <outlet property="topTextField" destination="DBH-bS-Xfe" id="kdn-H5-Szi"/>
+                        <outlet property="topToolBar" destination="8kh-3f-Uai" id="rjn-em-NdR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
