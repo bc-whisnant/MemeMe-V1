@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate,
+class MemeViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UITextFieldDelegate {
     
     //declare variables here
@@ -25,16 +25,12 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     var memedImage: UIImage?
     
     
-    //added text attributes for text fields
-    //added code for the text field styles
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         configure(textField: topTextField, withText: "TOP")
         configure(textField: bottomTextField, withText: "BOTTOM")
+
         
     }
     
