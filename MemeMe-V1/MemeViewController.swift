@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeViewController.swift
 //  MemeMe-V1
 //
 //  Created by Galvatron on 1/1/18.
@@ -42,10 +42,12 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         
         subscribeToKeyboardNotifications()
         //disables share button until an image is selected to prevent premature sharing of meme
-        if (pickedImageView.image != nil) {
+        //changed this so all items are not nil when the share button is pressed
+        if (pickedImageView.image != nil && bottomTextField.text != nil && topTextField != nil) {
             // enable the share button only when this condition is met
             shareButton.isEnabled = true
         } else {
+            //if any items are nil the share button won't be enabled
             shareButton.isEnabled = false
         }
     }
@@ -99,6 +101,8 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
         dismiss(animated: true, completion: nil)
+        //if cancel button is pressed then the share button is once again disabled until all items are nil
+        shareButton.isEnabled = false
     }
     
     //added function to set defaults for text fields
@@ -109,13 +113,12 @@ UINavigationControllerDelegate, UITextFieldDelegate {
             NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
             NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
             NSAttributedStringKey.strokeWidth.rawValue: -4]
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
+        textField.defaultTextAttributes = memeTextAttributes
         //this sets the code to center align ---> this has to be done via code
-        topTextField.textAlignment = .center
-        bottomTextField.textAlignment = .center
-        topTextField.delegate = self
-        bottomTextField.delegate = self
+        textField.textAlignment = .center
+        textField.delegate = self
+        //added capitilazation
+        textField.autocapitalizationType = .allCharacters
         
     }
     
@@ -175,6 +178,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     func unsubscribeFromKeyboardNotifications() {
         
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
         
     }
 
@@ -202,7 +206,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
 
     //this function allows the return button to dismiss the keyboard
     func textFieldShouldReturn(_ topTextField: UITextField) -> Bool {
-        self.view.endEditing(true)
+        view.endEditing(true)
         return false
     }
     
